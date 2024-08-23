@@ -174,10 +174,9 @@ chown <linuxize>:<users> <file1>
     - **`v`**: Verbose mode, shows the progress in the terminal.
     - **`p`**: Preserve permissions.
     - **`f`**: Specify the filename of the archive.
-
-2. extract
-`tar -xvf file_name.tar`
-3. **Extracting the Archive**:
+    - z: 存取 .tar.gz 格式的套件為「gzip」，此格式會進行打包並且壓縮。
+    - 
+2. **Extracting the Archive**:
     `tar -xvpf archive.tar`    
     - **`x`**: Extract the archive.
     - **`v`**: Verbose mode.
@@ -185,6 +184,8 @@ chown <linuxize>:<users> <file1>
     - **`f`**: Specify the filename of the archive.
     - z: 存取 .tar.gz 格式的套件為「gzip」，此格式會進行打包並且壓縮。
 
+3. To view the contents of a tar file in Linux without extracting it,
+tar -tf filename.tar.gz
 
 
 ## others

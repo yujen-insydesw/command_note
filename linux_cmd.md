@@ -9,6 +9,7 @@ uname -m
 # provides detailed information about your CPU architecture
 lscpu
 ```
+
 ## profile bash_profile
 - login shell will access `~/.profile` or `~/.bash_profile` first, then access `source ~/.bashrc`; interactive shell will reach `~/.bashrc` directly.
 - `~/.profile` is more common than `~/.bash_profile`, because it will be read and executed by all the shell, but the later can only be read and executed in Bash.
@@ -18,6 +19,7 @@ lscpu
 # example of enivoment variable
 export PATH= $PATH :/place/with/the/file;$PATH :/place/with/the/file
 ```
+
 ## kernel version and header
 ```console
 # check version
@@ -75,36 +77,8 @@ chmod u=rwx <file>
 chown <linuxize>:<users> <file1>
 ```
 
-## compress
-
-1. **Creating the Archive**:
-    `tar -cvpf archive.tar /path/to/directory`
-    - **`c`**: Create a new archive.
-    - **`v`**: Verbose mode, shows the progress in the terminal.
-    - **`p`**: Preserve permissions.
-    - **`f`**: Specify the filename of the archive.
-    - z: 存取 .tar.gz 格式的套件為「gzip」，此格式會進行打包並且壓縮。
-    - 
-2. **Extracting the Archive**:
-    `tar -xvpf archive.tar`    
-    - **`x`**: Extract the archive.
-    - **`v`**: Verbose mode.
-    - **`p`**: Preserve permissions.
-    - **`f`**: Specify the filename of the archive.
-    - z: 存取 .tar.gz 格式的套件為「gzip」，此格式會進行打包並且壓縮。
-
-3. To view the contents of a tar file in Linux without extracting it,
-tar -tf filename.tar.gz
-
-
-## others
-
-### soft link
+## install / package / dependency / ...
 ```console
-# ubuntu
-sudo apt install ...
-...
-
 # redhat/centos
 sudo yum install https://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-1.noarch.rpm
 sudo yum install git

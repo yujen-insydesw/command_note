@@ -32,7 +32,7 @@ This sequence of characters is the shebang. It tells the operating system that t
 ## Common
 
 <details>
-<summary>$ ${} $() $(( ))</summary>
+<summary>$  ${}  $()  $(( ))</summary>
 
 ```console
 #!/bin/bash
@@ -297,19 +297,21 @@ END_SCRIP
 <details>
 <summary>read .json</summary>
 
+raw.json
+```console
+{
+    "id": 3,
+    "message": {
+            "id": 333,
+            "string": "raw"
+    }
+}
+```
+script
 ```console
 #!/bin/bash
 
 # Main
-
-# raw.json
-# {
-#     "id": 3,
-#     "message": {
-#             "id": 333,
-#             "string": "raw"
-#     }
-# }
 
 # use jq
 # jq .message.string raw.json
@@ -335,6 +337,20 @@ fi
 <details>
 <summary>read .ini</summary>
 
+config.ini
+```console
+[main]
+description = Sample configuration
+timeout = 10
+monitoring_interval = 20
+ 
+[database]
+server = db.example.org
+port = 3306
+username = dbuser
+password = dbpass
+```
+script
 ```console
 #!/bin/bash
 
@@ -355,24 +371,12 @@ read_ini_file() {
 
 # Main
 
-# config.ini
-# [main]
-# description = Sample configuration
-# timeout = 10
-# monitoring_interval = 20
-# 
-# [database]
-# server = db.example.org
-# port = 3306
-# username = dbuser
-# password = dbpass
-
 ini_file="config.ini"
 read_ini_file $ini_file
 
-# Accessing the values
-echo "Description: $main_description"
-echo "Database Server: $database_server"
+# Reveal the values
+#echo "Description: $main_description"
+#echo "Database Server: $database_server"
 ```
 </details>
 

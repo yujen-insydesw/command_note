@@ -410,7 +410,7 @@ function KILL_PID() {
 
 # Usage
 if [ -z $1 ]; then
-    echo "Usage: $0 <directory_name>"
+    echo "Usage: $0 <program_name>"
     exit 1
 fi
 

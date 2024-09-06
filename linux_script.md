@@ -11,10 +11,10 @@ sed -i -e 's/\r$//' <xxx.sh>
 
 ## Basic usage
 ```console
-#
+# usage
 ./<xxx.sh>
 
-#
+# ps
 ＄ps -ef | grep <xxx.sh>
 ＄pgrep <xxx.sh>
 
@@ -32,6 +32,18 @@ This sequence of characters is the shebang. It tells the operating system that t
 ## Common
 
 <details>
+<summary># % //</summary>
+
+```console
+# string manipulation
+str="Prefix, Hello, Postfix"
+echo ${str#Prefix}
+echo ${str%Postfix}
+echo ${str//,}
+```
+</details>
+
+<details>
 <summary>$  ${}  $()  $(( ))</summary>
 
 ```console
@@ -39,7 +51,7 @@ This sequence of characters is the shebang. It tells the operating system that t
 
 BASEDIR=$(pwd)
 echo $(pwd): ${BASEDIR}
- 
+
 TODAY=$(date +%Y%m%d)
 echo today $(date +%Y%m%d): ${TODAY}
 
@@ -75,6 +87,10 @@ echo ""
 # elif [...]; then ...
 # else ...
 # fi
+
+# AND: &&
+# OR:  ||
+# NOT: !
 
 if ! [ -d ${1} ]; then
     echo Directory ${1} not exist 
@@ -399,10 +415,10 @@ function GET_PID() {
 function KILL_PID() {
     PROC_NAME=$1
     PID=$2
-    if kill -SIGQUIT $PID ; then
-        echo " $PROC_NAME (pid $PID) stopped  "
+    if kill -9 $PID ; then
+        echo "$PROC_NAME (pid $PID) stopped  "
     else
-        echo " $PROC_NAME could not be stopped   "
+        echo "$PROC_NAME could not be stopped   "
     fi
 }
 
@@ -422,7 +438,7 @@ IFS=' ' read -r -a HT_PID <<< $HT_PID
 
 # Check empty
 if [ ${#HT_PID[@]} -eq 0 ]; then
-    echo " $PROC_NAME process is not running "
+    echo "$PROC_NAME process is not running "
     exit 0
 fi
 
@@ -434,6 +450,48 @@ done
 ```
 start_program.sh
 ```console
+#! /bin/bash
+
+function GET_PID() {
+    HT_PID=$(pgrep -x $1)
+    echo $HT_PID
+}
+
+# Main
+
+# Usage
+if [ -z $1 ]; then
+    echo "Usage: $0 <program_name program_command>"
+    echo "Usage: $0 ./helloworld  ...             "
+    exit 1
+fi
+
+# Get input
+PROGRAM=("$@")
+echo input: ${PROGRAM[@]}
+NAME=${PROGRAM[0]//[.\/]}
+echo program: $NAME
+# note: //[.\/] means remove . and / in string
+
+# Check program
+HT_PID=$(GET_PID $NAME)
+if ! [ -z $HT_PID ]; then
+    echo "$NAME process is already running..."
+    exit 0
+fi
+
+# Execute program
+${PROGRAM[@]} &
+#$BINARY_PATH/$PROC_NAME $PROG_COMMAND &
+#sleep 1
+
+# Check program
+HT_PID=$(GET_PID $NAME)
+if ! [ -z $HT_PID ]; then
+    echo "Execute $NAME success  "
+else
+    echo "Execute $NAME failed   "
+fi
 ```
 </details>
 

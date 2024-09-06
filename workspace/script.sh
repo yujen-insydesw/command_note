@@ -1,5 +1,13 @@
 #!/bin/bash
 
+
+str="Prefix, Hello, Postfix"
+echo ${str#Prefix}
+echo ${str%Postfix}
+echo ${str//,}
+
+
+
 BASEDIR=$(pwd)
 echo $(pwd): ${BASEDIR}
  

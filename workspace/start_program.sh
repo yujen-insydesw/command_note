@@ -1,38 +1,42 @@
 #! /bin/bash
 
 function GET_PID() {
-	PROG_NAME=$1
-	HT_PID=$(ps -efa | grep -w $PROG_NAME | grep -v grep | grep -v tail | grep -v vi | grep -v 'sh -c'| awk '{print $2}')
-	return $HT_PID
+    HT_PID=$(pgrep -x $1)
+    echo $HT_PID
 }
 
-PROG_PATH=$1
-PROG_NAME=$2
-PROG_COMMAND=$3
+# Main
 
-GET_PID $PROG_NAME
-HT_PID=$?
-if [ "x$HT_PID" != "x" ]; then
-        echo ""
-        echo " ++++++++++++++++++++++++++++++++++++++++"
-        echo " $PROG_NAME process is already running..."
-        echo " ++++++++++++++++++++++++++++++++++++++++"
-        exit 0
+# Usage
+if [ -z $1 ]; then
+    echo "Usage: $0 <program_name program_command>"
+    echo "Usage: $0 ./helloworld  ...             "
+    exit 1
 fi
 
-$BINARY_PATH/$PROC_NAME $PROG_COMMAND
+# Get input
+PROGRAM=("$@")
+echo input: ${PROGRAM[@]}
+NAME=${PROGRAM[0]//[.\/]}
+echo program: $NAME
+# note: //[.\/] means remove . and / in string
+
+# Check program
+HT_PID=$(GET_PID $NAME)
+if ! [ -z $HT_PID ]; then
+    echo "$NAME process is already running..."
+    exit 0
+fi
+
+# Execute program
+${PROGRAM[@]} &
+#$BINARY_PATH/$PROC_NAME $PROG_COMMAND &
 #sleep 1
 
-GET_PID PROG_NAME
-HT_PID=$?
-if [ "x$HT_PID" != "x" ]; then
-        echo ""
-        echo "$ ++++++++++++++++++++++++++++++++++++++++"
-        echo "$ Execute $PROC_NAME success  "
-        echo "$ ++++++++++++++++++++++++++++++++++++++++"
+# Check program
+HT_PID=$(GET_PID $NAME)
+if ! [ -z $HT_PID ]; then
+    echo "Execute $NAME success  "
 else
-        echo ""
-        echo " ++++++++++++++++++++++++++++++++++++++++"
-        echo " Execute $PROC_NAME failed   "
-        echo " ++++++++++++++++++++++++++++++++++++++++"
+    echo "Execute $NAME failed   "
 fi

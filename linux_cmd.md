@@ -19,6 +19,22 @@ lscpu
 # example of enivoment variable
 export PATH= $PATH :/place/with/the/file;$PATH :/place/with/the/file
 ```
+- set environmental variable
+```console
+# temperary
+export VARNAME="value"
+
+# permanently
+vim ~/.bashrc
+# or
+vim ~/.bash_profile
+
+export VARNAME="value"
+
+source ~/.bashrc
+# or
+source ~/.bash_profile
+```
 
 ## kernel version and header
 ```console

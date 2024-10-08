@@ -96,6 +96,9 @@ git checkout -t <origin/kirkstone> -b <my-kirkstone>
 # To merge <feature-branch> into <main>
 git checkout <main>
 git merge <feature-branch>
+
+# If you prefer to keep the feature branch history but still want to merge it into the main branch
+git merge --no-ff <feature-branch>
 ```
 ### Remote Repositories
 ```console
